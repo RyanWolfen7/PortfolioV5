@@ -1,6 +1,6 @@
 <script lang="ts">
     import '../app.css';
-    import { page } from '$app/stores';
+    import { page } from '$app/state';
     import { onMount } from 'svelte';
     export let children;
     let menuOpen = false;
@@ -11,8 +11,8 @@
 
     // Helper function to check if a route is active
     function isActiveRoute(path: string): boolean {
-        if (!$page.url) return false;
-        return $page.url.pathname === path;
+        if (!page.url) return false;
+        return page.url.pathname === path;
     }
     
     // Website-level structured data
