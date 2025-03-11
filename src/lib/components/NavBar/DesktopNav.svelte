@@ -1,5 +1,5 @@
 <script>
-    import { isActiveRoute } from '$lib';
+    import { isActiveRoute } from '$lib/_index';
 </script>
 
 <nav class="hidden md:flex justify-between items-center p-4 max-w-7xl mx-auto" aria-label="Main navigation">

@@ -11,7 +11,7 @@ export {
   MobileMenu, 
   Footer, 
   navSEO 
-} from './components/NavBar';
+} from './components/NavBar/_index';
 
 // Svelte Functions
 export { isActiveRoute } from './utils/svelteFunctions';
