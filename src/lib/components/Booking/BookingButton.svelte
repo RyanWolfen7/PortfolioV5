@@ -1,5 +1,5 @@
 <script lang="ts">
-    
+     let menuOpen = $state(false);
 </script>
 
 <button class="group relative ml-4 py-2.5 px-6 overflow-hidden bg-slate-800/70 hover:bg-slate-700/70 text-white font-light tracking-wider text-sm border-l-2 border-amber-500 shadow-lg transition-all duration-300 hover:shadow-amber-500/30 focus:outline-none" aria-label="Book a consultation">
