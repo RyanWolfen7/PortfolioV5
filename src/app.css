@@ -1,1 +1,28 @@
 @import 'tailwindcss';
+
+/* Layout styles for sticky footer and full height content */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure the main container takes full height */
+body > div {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make the main content area expand to fill available space */
+main {
+  flex: 1 0 auto;
+}
+
+/* Make the footer always stick to the bottom */
+footer {
+  flex-shrink: 0;
+}
+
+/* Add any other global styles here */
+
