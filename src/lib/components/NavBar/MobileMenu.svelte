@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { isActiveRoute } from '$lib/_index';
+    import { isActiveRoute, BookingButton } from '$lib/_index';
     let { toggleMenu, menuOpen } = $props()
 </script>
 {#if menuOpen}
@@ -45,12 +45,7 @@
                     <img src="/linkedin.svg" alt="LinkedIn" class="h-8 w-8 filter brightness-100 relative z-10" width="32" height="32" />
                 </a>
             </div>
-            <button class="group relative mt-4 py-3 px-10 overflow-hidden backdrop-blur-sm bg-white/5 hover:bg-white/10 text-white font-light tracking-widest uppercase text-sm border border-white/10 shadow-xl transition-all duration-300 hover:shadow-amber-500/20 focus:outline-none" aria-label="Book a consultation">
-                <span class="relative z-10 group-hover:text-amber-200 transition-colors duration-500 group-hover:translate-y-[-2px] inline-block transform">Book Me</span>
-                <span class="absolute bottom-0 left-0 w-full h-0 bg-gradient-to-r from-amber-500/20 via-amber-400/20 to-amber-600/20 transition-all duration-500 group-hover:h-full"></span>
-                <span class="absolute inset-0 border border-white/0 group-hover:border-white/10 transition-all duration-300 scale-90 group-hover:scale-100 rounded-sm"></span>
-                <span class="absolute -inset-1 bg-white/0 group-hover:bg-white/5 blur-md transition-all duration-500"></span>
-            </button>
+            <BookingButton {toggleMenu}/>
         </nav>
     </div>
 {/if}

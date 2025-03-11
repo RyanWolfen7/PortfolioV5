@@ -13,6 +13,12 @@ export {
   navSEO 
 } from './components/NavBar/_index';
 
+// Bookings Components
+export { 
+  BookingButton, 
+  bookingSEO 
+} from './components/Booking/_index';
+
 // Svelte Functions
 export { isActiveRoute } from './utils/svelteFunctions';
 
