@@ -1,7 +1,10 @@
 <script lang="ts">
-    import { mountSEO, bookingSEO } from '$lib/_index';
+    import { onMount } from 'svelte';
+    import { bookingSEO, appendWebsiteStructuredData } from '$lib/_index';
     let { children } = $props();
-    mountSEO(bookingSEO);
+    onMount(() => {
+        appendWebsiteStructuredData(bookingSEO);
+    });
 </script>
 
 

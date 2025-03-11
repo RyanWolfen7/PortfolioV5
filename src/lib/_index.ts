@@ -23,7 +23,7 @@ export {
 export { isActiveRoute } from './utils/svelteFunctions';
 
 // SEO Functions
-export { appendWebsiteStructuredData,mountSEO } from './utils/seoFunctions';
+export { appendWebsiteStructuredData } from './utils/seoFunctions';
 
 // Types
 export type { SchemaWebSite, SchemaSearchAction } from '../../types/structuredData';

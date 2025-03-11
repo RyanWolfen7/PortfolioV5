@@ -1,3 +1,7 @@
+<script lang="ts">
+   
+</script>
+
 <svelte:head>
     <title>Book a Consultation | Ryan Clark - Fullstack Developer</title>
     <meta name="description" content="Schedule a consultation with Ryan Clark, a fullstack developer specializing in modern web applications, responsive design, and performance optimization." />
