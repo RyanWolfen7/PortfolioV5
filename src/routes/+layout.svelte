@@ -42,8 +42,8 @@
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex justify-between items-center p-4 max-w-7xl mx-auto" aria-label="Main navigation">
             <div class="flex items-center">
-                <a href="/" class="mr-12 transition-transform duration-500 hover:scale-105" aria-label="Ryan Clark - Home">
-                    <img src="/logo.svg" alt="Ryan Clark Logo" width="180" height="120" />
+                <a href="/" class="mr-12 transition-transform duration-500 hover:scale-105 mb-0 pb-0" aria-label="Ryan Clark - Home">
+                    <img src="/logo.svg" alt="Ryan Clark Logo" width="250" height="240" />
                 </a>
                 <div class="flex space-x-8" role="menubar">
                     <a href="/about" class="text-slate-200 hover:text-white font-light tracking-wider transition-all duration-300 relative group" role="menuitem" aria-current={isActiveRoute('/about') ? 'page' : undefined}>
@@ -80,7 +80,7 @@
         <!-- Mobile Navigation Header -->
         <nav class="md:hidden flex items-center justify-around p-3" aria-label="Mobile navigation">
             <a href="/" class="transition-transform duration-500 hover:scale-105" aria-label="Ryan Clark - Home">
-                <img src="/logo.svg" alt="Ryan Clark Logo" width="180" height="64" />
+                <img src="/logo.svg" alt="Ryan Clark Logo" width="250" height="64" />
             </a>
             <div class="flex items-center space-x-3">
                 <button 
