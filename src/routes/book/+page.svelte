@@ -1,6 +1,10 @@
 <script lang="ts">
-   
+    import type { PageProps } from './$types';
+    import { SEO, bookingSEO, ReCaptchaButton } from "$lib/_index";
+    let { data, form }: PageProps = $props()
+    console.log(form)
 </script>
+<SEO websiteStructuredData={bookingSEO} />
 
 <svelte:head>
     <title>Book a Consultation | Ryan Clark - Fullstack Developer</title>
@@ -29,7 +33,7 @@
         </p>
         
         <!-- Booking form with semantic markup -->
-        <form class="space-y-6" aria-labelledby="booking-form-title">
+        <form id="demo-form" class="space-y-6" aria-labelledby="booking-form-title" method="POST" >
             <div>
                 <label for="name" class="block text-sm font-medium mb-1">Full Name <span class="text-amber-500">*</span></label>
                 <input 
@@ -57,8 +61,8 @@
             </div>
 
             <div>
-                <label for="project-type" class="block text-sm font-medium mb-1">Project Type</label>
-                <select id="project-type" name="project-type" class="w-full bg-slate-700 rounded-md px-4 py-2 border border-slate-600 focus:border-amber-500 focus:outline-none">
+                <label for="projectType" class="block text-sm font-medium mb-1">Project Type</label>
+                <select id="projectType" name="projectType" class="w-full bg-slate-700 rounded-md px-4 py-2 border border-slate-600 focus:border-amber-500 focus:outline-none">
                     <option value="">Select project type</option>
                     <option value="website">Website Development</option>
                     <option value="webapp">Web Application</option>
@@ -69,10 +73,10 @@
             </div>
             
             <div>
-                <label for="message" class="block text-sm font-medium mb-1">Project Details <span class="text-amber-500">*</span></label>
+                <label for="projectDetails" class="block text-sm font-medium mb-1">Project Details <span class="text-amber-500">*</span></label>
                 <textarea 
-                    id="message" 
-                    name="message" 
+                    id="projectDetails" 
+                    name="projectDetails" 
                     rows="4" 
                     required 
                     aria-required="true"
@@ -82,18 +86,21 @@
             </div>
             
             <div>
-                <button 
+                <ReCaptchaButton
+                    id="bookMeSubmit" 
                     type="submit" 
-                    class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-medium py-2 px-6 rounded-md transition-all flex items-center"
+                    classNames="bg-amber-500 hover:bg-amber-600 text-slate-900 font-medium py-2 px-6 rounded-md transition-all flex items-center"
                 >
-                    <span>Submit Request</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </button>
+                    <svelte:fragment>
+                        <span>Submit Request</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </svelte:fragment>
+                </ReCaptchaButton>
             </div>
         </form>
-
+     
         <div class="mt-8 pt-6 border-t border-slate-700">
             <h3 class="text-lg font-medium mb-2 text-amber-400">What to Expect</h3>
             <ul class="list-disc pl-5 space-y-2">

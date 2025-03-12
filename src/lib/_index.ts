@@ -22,8 +22,12 @@ export {
 // Svelte Functions
 export { isActiveRoute } from './utils/svelteFunctions';
 
+// ReCaptha Functions
+import ReCaptchaButton from './components/ReCaptchaButton.svelte';
+
 // SEO Functions
-export { appendWebsiteStructuredData } from './utils/seoFunctions';
+import SEO from './components/SEO.svelte';
+export { SEO, ReCaptchaButton };
 
 // Types
 export type { SchemaWebSite, SchemaSearchAction } from '../../types/structuredData';

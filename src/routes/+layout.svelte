@@ -1,16 +1,11 @@
 <script lang="ts">
     import '../app.css';
-    import {onMount} from 'svelte';
-    import { DesktopNav, MobileNav, MobileMenu, Footer, navSEO, appendWebsiteStructuredData } from '$lib/_index';
-    let { children } = $props()
+    import { DesktopNav, MobileNav, MobileMenu, Footer} from '$lib/_index';
+    let { children } = $props();
     let menuOpen = $state(false);
 
-    function toggleMenu() { menuOpen = !menuOpen; }    
-    onMount(() => {
-        appendWebsiteStructuredData(navSEO);
-    });
+    function toggleMenu() { menuOpen = !menuOpen; }
 </script>
-
 <div class="min-h-screen flex flex-col bg-slate-900 text-white">
     <header class="bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 shadow-lg border-b border-amber-500/10">
         <DesktopNav />
