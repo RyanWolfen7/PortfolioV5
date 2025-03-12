@@ -20,7 +20,10 @@
 		script.defer = true;
 		document.head.appendChild(script);
 
-	
+		const script2 = document.createElement('script');
+		script2.type = 'text/javascript';
+		script2.innerHTML = JSON.stringify(onSubmit);
+		document.head.appendChild(script2);
 	});
 </script>
 
@@ -30,7 +33,7 @@
 	type={type}
 	class={updatedClass}
 	data-sitekey={RECAPTCHA_KEY}
-	data-callback={onSubmit}
+	data-callback="onSubmit"
 	data-action="submit"
 >
 	{@render children()}
