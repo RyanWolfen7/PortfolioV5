@@ -21,8 +21,9 @@
 		document.head.appendChild(script);
 
 		const script2 = document.createElement('script');
+		script2.type = 'text/javascript';
 		script2.innerHTML = onSubmit.toString();
-		document.body.appendChild(script2);
+		document.head.appendChild(script2);
 	});
 </script>
 
