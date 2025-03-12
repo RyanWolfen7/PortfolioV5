@@ -19,6 +19,10 @@
 		script.async = true;
 		script.defer = true;
 		document.head.appendChild(script);
+
+		const script2 = document.createElement('script');
+		script2.innerHTML = onSubmit.toString();
+		document.body.appendChild(script2);
 	});
 </script>
 
