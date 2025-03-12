@@ -11,13 +11,23 @@ export {
   MobileMenu, 
   Footer, 
   navSEO 
-} from './components/NavBar';
+} from './components/NavBar/_index';
+
+// Bookings Components
+export { 
+  BookingButton, 
+  bookingSEO 
+} from './components/Booking/_index';
 
 // Svelte Functions
 export { isActiveRoute } from './utils/svelteFunctions';
 
+// ReCaptha Functions
+import ReCaptchaButton from './components/ReCaptchaButton.svelte';
+
 // SEO Functions
-export { appendWebsiteStructuredData,mountSEO } from './utils/seoFunctions';
+import SEO from './components/SEO.svelte';
+export { SEO, ReCaptchaButton };
 
 // Types
 export type { SchemaWebSite, SchemaSearchAction } from '../../types/structuredData';
