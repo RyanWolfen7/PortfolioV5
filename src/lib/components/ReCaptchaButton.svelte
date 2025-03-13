@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount, onDestroy } from "svelte";
-	import { on } from "svelte/events";
 	let { 
 		id,
 		type = "button" as "submit" | "button" | "reset" | undefined,
@@ -10,16 +9,27 @@
 	} = $props();
 	const RECAPTCHA_KEY = '6Ld8gPEqAAAAAHdlGkio9KurLbA1pHF2GM5k66ZJ'
 	const updatedClass = `g-recaptcha ${classNames}`
+	const formId = 'form-to-book-ryan';
+	
 	const onSubmit = `
       function onSubmit(token) {
-        document.getElementById('form-to-book-ryan').submit();
+        if (token) {
+          const form = document.getElementById('${formId}');
+          if (form) {
+            form.submit();
+          } else {
+            console.error('Form not found');
+          }
+        } else {
+          console.error('reCAPTCHA verification failed');
+        }
       }
     `;
 	let grecaptchaScript: HTMLScriptElement;
 	let onSubmitScript: HTMLScriptElement;
 		
-
 	onMount(() => {
+		// Load reCAPTCHA script if it's not already loaded
 		if(!document.getElementById('gRecaptcha')) {
 			grecaptchaScript = document.createElement('script');
 			grecaptchaScript.id = "gRecaptcha";
@@ -28,27 +38,33 @@
 			grecaptchaScript.defer = true;
 			document.head.appendChild(grecaptchaScript);
 		}
-		onSubmitScript = document.createElement('script');
-		onSubmitScript.type = 'text/javascript';
-		onSubmitScript.innerHTML = onSubmit;
-		document.body.appendChild(onSubmitScript);
+		
+		// Add the onSubmit function
+		if(!document.getElementById('recaptcha-submit-handler')) {
+			onSubmitScript = document.createElement('script');
+			onSubmitScript.id = 'recaptcha-submit-handler';
+			onSubmitScript.type = 'text/javascript';
+			onSubmitScript.innerHTML = onSubmit;
+			document.body.appendChild(onSubmitScript);
+		}
 	});
-	onDestroy(() => {
 	
+	onDestroy(() => {
+		// Clean up the onSubmit script when component is destroyed
 		if(onSubmitScript && onSubmitScript.parentNode) {
 			onSubmitScript.parentNode.removeChild(onSubmitScript);
 		}
 	});
 </script>
 
-
 <button
 	id={id}
 	type={type}
 	class={updatedClass}
 	data-sitekey={RECAPTCHA_KEY}
-	data-callback=onSubmit
+	data-callback="onSubmit"
 	data-action="submit"
+	aria-label="Submit form with reCAPTCHA verification"
 >
 	{@render children()}
 </button>
