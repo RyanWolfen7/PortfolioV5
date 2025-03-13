@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { isActiveRoute, BookingButton } from '$lib/_index';
+    import { isActiveRoute, BookingButton } from '$lib';
     let { toggleMenu, menuOpen } = $props()
 </script>
 {#if menuOpen}

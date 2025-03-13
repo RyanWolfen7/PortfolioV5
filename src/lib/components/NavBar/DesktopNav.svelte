@@ -1,5 +1,5 @@
 <script>
-    import { isActiveRoute } from '$lib/_index';
+    import { isActiveRoute } from '$lib';
 	import BookingButton from '../Booking/BookingButton.svelte';
 </script>
 

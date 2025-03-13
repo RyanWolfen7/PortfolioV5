@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { SEO, navSEO } from '$lib/_index'
+    import { SEO, navSEO } from '$lib'
 </script>
 
 <svelte:head>
@@ -32,4 +32,3 @@
     <p class="text-xl text-slate-300 max-w-2xl">Creating modern web applications with focus on performance, accessibility and user experience.</p>
 </section>
 
-<!-- Add your additional page content here -->

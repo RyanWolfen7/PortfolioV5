@@ -20,7 +20,7 @@ export {
 } from './components/Booking/_index';
 
 // Svelte Functions
-export { isActiveRoute } from './utils/svelteFunctions';
+export { isActiveRoute } from './utility/svelteFunctions';
 
 // ReCaptha Functions
 import ReCaptchaButton from './components/ReCaptchaButton.svelte';
@@ -31,4 +31,5 @@ export { SEO, ReCaptchaButton };
 
 // Types
 export type { SchemaWebSite, SchemaSearchAction } from '../../types/structuredData';
+export type { RecaptchaToken } from '../../types/recaptcha';
 

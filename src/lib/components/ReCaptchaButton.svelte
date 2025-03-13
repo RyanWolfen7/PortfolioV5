@@ -7,10 +7,13 @@
 		onClick = () => null,
 		children
 	} = $props();
-	const RECAPTCHA_KEY = '6Ld8gPEqAAAAAHdlGkio9KurLbA1pHF2GM5k66ZJ'
+	
+	// Use PUBLIC_ prefixed environment variable for client-side code
+	const RECAPTCHA_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Ld8gPEqAAAAAHdlGkio9KurLbA1pHF2GM5k66ZJ';
 	const updatedClass = `g-recaptcha ${classNames}`
 	const formId = 'form-to-book-ryan';
 	
+	// Improved onSubmit function with error handling
 	const onSubmit = `
       function onSubmit(token) {
         if (token) {

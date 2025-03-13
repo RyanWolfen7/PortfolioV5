@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { PageProps } from './$types';
-    import { SEO, bookingSEO, ReCaptchaButton } from "$lib/_index";
+    import { SEO, bookingSEO, ReCaptchaButton } from "$lib";
     let { data, form }: PageProps = $props()
     console.log(form)
 </script>
