@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
 }
 
-export const actions = {
+export const actions: Actions = {
     default: async ({ request, cookies }) => {
         const data = await request.formData();
         const headers = await request.headers;
