@@ -4,6 +4,7 @@
     let { data, form }: PageProps = $props()
     console.log(form)
 </script>
+
 <SEO websiteStructuredData={bookingSEO} />
 
 <svelte:head>
@@ -33,7 +34,7 @@
         </p>
         
         <!-- Booking form with semantic markup -->
-        <form id="demo-form" class="space-y-6" aria-labelledby="booking-form-title" method="POST" >
+        <form id="form-to-book-ryan" class="space-y-6" aria-labelledby="booking-form-title" method="POST" >
             <div>
                 <label for="name" class="block text-sm font-medium mb-1">Full Name <span class="text-amber-500">*</span></label>
                 <input 

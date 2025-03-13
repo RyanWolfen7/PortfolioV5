@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { onMount, onDestroy } from "svelte";
+	import { on } from "svelte/events";
 	let { 
 		id,
 		type = "button" as "submit" | "button" | "reset" | undefined,
@@ -9,21 +10,34 @@
 	} = $props();
 	const RECAPTCHA_KEY = '6Ld8gPEqAAAAAHdlGkio9KurLbA1pHF2GM5k66ZJ'
 	const updatedClass = `g-recaptcha ${classNames}`
-	function onSubmit(token: any) {
-		console.log(token);
-     	document.getElementById("demo-form");
-   }
-	onMount(() => {
-		const script = document.createElement('script');
-		script.src = 'https://www.google.com/recaptcha/api.js';
-		script.async = true;
-		script.defer = true;
-		document.head.appendChild(script);
+	const onSubmit = `
+      function onSubmit(token) {
+        document.getElementById('form-to-book-ryan').submit();
+      }
+    `;
+	let grecaptchaScript: HTMLScriptElement;
+	let onSubmitScript: HTMLScriptElement;
+		
 
-		const script2 = document.createElement('script');
-		script2.type = 'text/javascript';
-		script2.innerHTML = JSON.stringify(onSubmit);
-		document.head.appendChild(script2);
+	onMount(() => {
+		if(!document.getElementById('gRecaptcha')) {
+			grecaptchaScript = document.createElement('script');
+			grecaptchaScript.id = "gRecaptcha";
+			grecaptchaScript.src = 'https://www.google.com/recaptcha/api.js';
+			grecaptchaScript.async = true;
+			grecaptchaScript.defer = true;
+			document.head.appendChild(grecaptchaScript);
+		}
+		onSubmitScript = document.createElement('script');
+		onSubmitScript.type = 'text/javascript';
+		onSubmitScript.innerHTML = onSubmit;
+		document.body.appendChild(onSubmitScript);
+	});
+	onDestroy(() => {
+	
+		if(onSubmitScript && onSubmitScript.parentNode) {
+			onSubmitScript.parentNode.removeChild(onSubmitScript);
+		}
 	});
 </script>
 
@@ -33,7 +47,7 @@
 	type={type}
 	class={updatedClass}
 	data-sitekey={RECAPTCHA_KEY}
-	data-callback="onSubmit"
+	data-callback=onSubmit
 	data-action="submit"
 >
 	{@render children()}

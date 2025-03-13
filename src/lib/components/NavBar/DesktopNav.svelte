@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="flex items-center space-x-6">
-        <a class="transition-all duration-300 hover:scale-110 hover:rotate-6 relative group" href="https://github.com/RyanWolfen7" aria-label="GitHub Profile" rel="noopener noreferrer" target="_blank">
+        <a class="transition-all duration-300 hover:scale-110 hover:rotate-6 relative group" href="https://github.com/RyanWolfen7/PortfolioV5" aria-label="GitHub Profile" rel="noopener noreferrer" target="_blank">
             <span class="absolute -inset-3 bg-white/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:scale-75"></span>
             <img src="/github.svg" alt="GitHub" class="h-6 w-6 filter brightness-100 relative z-10" width="24" height="24" />
         </a>
