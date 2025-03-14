@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, onDestroy } from "svelte";
+	import { onMount, onDestroy, tick } from "svelte";
 	let { 
 		id,
 		type = "button" as "submit" | "button" | "reset" | undefined,
@@ -30,6 +30,14 @@
     `;
 	let grecaptchaScript: HTMLScriptElement;
 	let onSubmitScript: HTMLScriptElement;
+	let recaptchaBox: HTMLDivElement;
+	$effect.pre(() => {
+		// before the component is mounted, wait for the recaptcha box to be created
+		tick().then(() => {
+				// on component update get the recaptcha box
+				recaptchaBox = document.body.lastElementChild as HTMLDivElement;
+		});
+	});
 		
 	onMount(() => {
 		// Load reCAPTCHA script if it's not already loaded
@@ -48,7 +56,7 @@
 			onSubmitScript.id = 'recaptcha-submit-handler';
 			onSubmitScript.type = 'text/javascript';
 			onSubmitScript.innerHTML = onSubmit;
-			document.body.appendChild(onSubmitScript);
+			document.body.prepend(onSubmitScript);
 		}
 	});
 	
@@ -57,6 +65,7 @@
 		if(onSubmitScript && onSubmitScript.parentNode) {
 			onSubmitScript.parentNode.removeChild(onSubmitScript);
 		}
+		// Cleans up recaptcha Icon
 	});
 </script>
 

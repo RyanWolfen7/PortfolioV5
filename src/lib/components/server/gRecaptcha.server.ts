@@ -15,45 +15,40 @@ export const createAssessment = async ({
     recaptchaAction?: string;
     userIpAddress?: string;
     userAgent?: string;
-}) => {
-    if (!token) {
-        console.error("No reCAPTCHA token provided");
-        return null;
-    }
+}) => {    
     const projectID = env.RECAPTCHA_PROJECT_ID;
     const recaptchaKey = env.RECAPTCHA_KEY;
+    if (!projectID) return { passes: false, reason: "RECAPTCHA_PROJECT_ID is not defined in environment variables" };
+    if (!recaptchaKey) return { passes: false, reason: "reCAPTCHA_KEY is not defined in environment variables" };
+    if (!token) return { passes: false, reason: "No reCAPTCHA token provided" };
 
-    if (!projectID) {
-        console.error("RECAPTCHA_PROJECT_ID is not defined in environment variables");
-        return null;
-    }
-
-    if (!recaptchaKey) {
-        console.error("RECAPTCHA_KEY is not defined in environment variables");
-        return null;
-    }
-    console.log("reCaptcha Action:", recaptchaAction);
-    console.log("Google API Key:", env.GOOGLE_API_KEY);
-    const request = await fetch(`https://recaptchaenterprise.googleapis.com/v1/projects/${projectID}/assessments?key=${GOOGLE_API_KEY}`, {
+    const requestBody = {
+        "event": {  // The event to be assessed
+            "token": token,
+            "siteKey": recaptchaKey,
+            "expectedAction": recaptchaAction,
+            "userIpAddress": userIpAddress,
+            "userAgent": userAgent
+        }
+    };
+    const recaptchaResponse = await fetch(`https://recaptchaenterprise.googleapis.com/v1/projects/${projectID}/assessments?key=${GOOGLE_API_KEY}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json; charset=utf-8",
         },
-        body: JSON.stringify({
-            event: {
-                token,
-                expectedAction: recaptchaAction,
-                siteKey: recaptchaKey,
-                userIpAddress,
-                userAgent,
-                 
-            }
-        }),
+        body: JSON.stringify(requestBody),
     });
-    const body = await request.json();
+    const body = await recaptchaResponse.json();
     const { riskAnalysis, tokenProperties } = body;
-    console.log("Recaptcha token properties:", tokenProperties);
-    console.log("Recaptcha risk analysis:", riskAnalysis);
-    return { passes: true, reason: null };
+    if (!tokenProperties.valid) {
+        console.error("Invalid reCAPTCHA token", tokenProperties.invalidReason);
+        return { passes: false, reason: "Invalid reCAPTCHA token" };
+    }
 
+    if (riskAnalysis.score >= 0.5) {
+        console.log("High-risk reCAPTCHA score", riskAnalysis.score);
+        return { passes: false, reason: "High-risk reCAPTCHA score" };
+    }
+
+    return { passes: true, reason: null };
 };

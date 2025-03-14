@@ -2,7 +2,7 @@ import { createAssessment } from '$lib/components/server/gRecaptcha.server';
 import { fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ cookies }) => {
 
     return {};
 };
@@ -13,7 +13,6 @@ export const actions: Actions = {
         try {
             const data = await request.formData();
             const recaptchaToken = data.get('g-recaptcha-response')?.toString();
-
             const name = data.get('name')?.toString();
             const email = data.get('email')?.toString();
             const projectDetails = data.get('projectDetails')?.toString();
@@ -25,7 +24,7 @@ export const actions: Actions = {
             const ip = getClientAddress();
             const assessment = await createAssessment({ 
                 token: recaptchaToken,
-                recaptchaAction: 'submit',
+                recaptchaAction: 'booking_request',
                 userAgent: headers.get('user-agent') as string | undefined,
                 userIpAddress: ip
             });
