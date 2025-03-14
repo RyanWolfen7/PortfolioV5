@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { onMount, onDestroy, tick } from "svelte";
 	let { 
 		id,
 		type = "button" as "submit" | "button" | "reset" | undefined,
@@ -7,26 +7,67 @@
 		onClick = () => null,
 		children
 	} = $props();
-	const RECAPTCHA_KEY = '6Ld8gPEqAAAAAHdlGkio9KurLbA1pHF2GM5k66ZJ'
+	
+	// Use PUBLIC_ prefixed environment variable for client-side code
+	const RECAPTCHA_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6Ld8gPEqAAAAAHdlGkio9KurLbA1pHF2GM5k66ZJ';
 	const updatedClass = `g-recaptcha ${classNames}`
-	function onSubmit(token: any) {
-		console.log(token);
-     	document.getElementById("demo-form");
-   }
+	const formId = 'form-to-book-ryan';
+	
+	// Improved onSubmit function with error handling
+	const onSubmit = `
+      function onSubmit(token) {
+        if (token) {
+          const form = document.getElementById('${formId}');
+          if (form) {
+            form.submit();
+          } else {
+            console.error('Form not found');
+          }
+        } else {
+          console.error('reCAPTCHA verification failed');
+        }
+      }
+    `;
+	let grecaptchaScript: HTMLScriptElement;
+	let onSubmitScript: HTMLScriptElement;
+	let recaptchaBox: HTMLDivElement;
+	$effect.pre(() => {
+		// before the component is mounted, wait for the recaptcha box to be created
+		tick().then(() => {
+				// on component update get the recaptcha box
+				recaptchaBox = document.body.lastElementChild as HTMLDivElement;
+		});
+	});
+		
 	onMount(() => {
-		const script = document.createElement('script');
-		script.src = 'https://www.google.com/recaptcha/api.js';
-		script.async = true;
-		script.defer = true;
-		document.head.appendChild(script);
-
-		const script2 = document.createElement('script');
-		script2.type = 'text/javascript';
-		script2.innerHTML = JSON.stringify(onSubmit);
-		document.head.appendChild(script2);
+		// Load reCAPTCHA script if it's not already loaded
+		if(!document.getElementById('gRecaptcha')) {
+			grecaptchaScript = document.createElement('script');
+			grecaptchaScript.id = "gRecaptcha";
+			grecaptchaScript.src = `https://www.google.com/recaptcha/enterprise.js?render=${RECAPTCHA_KEY}`;
+			grecaptchaScript.async = true;
+			grecaptchaScript.defer = true;
+			document.head.appendChild(grecaptchaScript);
+		}
+		
+		// Add the onSubmit function
+		if(!document.getElementById('recaptcha-submit-handler')) {
+			onSubmitScript = document.createElement('script');
+			onSubmitScript.id = 'recaptcha-submit-handler';
+			onSubmitScript.type = 'text/javascript';
+			onSubmitScript.innerHTML = onSubmit;
+			document.body.prepend(onSubmitScript);
+		}
+	});
+	
+	onDestroy(() => {
+		// Clean up the onSubmit script when component is destroyed
+		if(onSubmitScript && onSubmitScript.parentNode) {
+			onSubmitScript.parentNode.removeChild(onSubmitScript);
+		}
+		// Cleans up recaptcha Icon
 	});
 </script>
-
 
 <button
 	id={id}
@@ -34,7 +75,8 @@
 	class={updatedClass}
 	data-sitekey={RECAPTCHA_KEY}
 	data-callback="onSubmit"
-	data-action="submit"
+	data-action="booking_request"
+	aria-label="Submit form with reCAPTCHA verification"
 >
 	{@render children()}
 </button>

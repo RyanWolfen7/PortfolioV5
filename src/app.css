@@ -8,7 +8,7 @@ html, body {
 }
 
 /* Ensure the main container takes full height */
-body > div {
+Body > #content > div {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -25,4 +25,3 @@ footer {
 }
 
 /* Add any other global styles here */
-

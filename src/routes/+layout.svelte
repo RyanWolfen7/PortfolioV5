@@ -1,6 +1,6 @@
 <script lang="ts">
     import '../app.css';
-    import { DesktopNav, MobileNav, MobileMenu, Footer} from '$lib/_index';
+    import { DesktopNav, MobileNav, MobileMenu, Footer} from '$lib';
     let { children } = $props();
     let menuOpen = $state(false);
 

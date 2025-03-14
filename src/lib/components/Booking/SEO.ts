@@ -7,7 +7,7 @@ const bookingSEO: SchemaWebSite = {
     "url": "https://ryan-clark-fullstack.dev/book",
     "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://ryan-clark-fullstack.dev/search?q={search_term_string}",
+        "target": "https://ryan-clark-fullstack.dev/book/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
     }
 };

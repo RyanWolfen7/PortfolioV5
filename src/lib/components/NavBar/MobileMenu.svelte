@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { isActiveRoute, BookingButton } from '$lib/_index';
+    import { isActiveRoute, BookingButton } from '$lib';
     let { toggleMenu, menuOpen } = $props()
 </script>
 {#if menuOpen}
@@ -36,7 +36,7 @@
             
             <!-- Social icons  -->
             <div class="flex space-x-8 mt-6 mb-10">
-                <a class="transition-all duration-300 hover:scale-125 hover:rotate-6 relative group" href="https://github.com/RyanWolfen7" aria-label="GitHub Profile" rel="noopener noreferrer" target="_blank">
+                <a class="transition-all duration-300 hover:scale-125 hover:rotate-6 relative group" href="https://github.com/RyanWolfen7/PortfolioV5" aria-label="GitHub Profile" rel="noopener noreferrer" target="_blank">
                     <span class="absolute -inset-5 bg-white/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:scale-75"></span>
                     <img src="/github.svg" alt="GitHub" class="h-8 w-8 filter brightness-100 relative z-10" width="32" height="32" />
                 </a>
