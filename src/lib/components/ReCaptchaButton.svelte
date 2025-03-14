@@ -36,7 +36,7 @@
 		if(!document.getElementById('gRecaptcha')) {
 			grecaptchaScript = document.createElement('script');
 			grecaptchaScript.id = "gRecaptcha";
-			grecaptchaScript.src = 'https://www.google.com/recaptcha/api.js';
+			grecaptchaScript.src = `https://www.google.com/recaptcha/enterprise.js?render=${RECAPTCHA_KEY}`;
 			grecaptchaScript.async = true;
 			grecaptchaScript.defer = true;
 			document.head.appendChild(grecaptchaScript);
@@ -66,7 +66,7 @@
 	class={updatedClass}
 	data-sitekey={RECAPTCHA_KEY}
 	data-callback="onSubmit"
-	data-action="submit"
+	data-action="booking_request"
 	aria-label="Submit form with reCAPTCHA verification"
 >
 	{@render children()}

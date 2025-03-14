@@ -8,9 +8,13 @@ import { GOOGLE_API_KEY } from '$env/static/private';
 export const createAssessment = async ({
     token,
     recaptchaAction = "submit",
+    userIpAddress,
+    userAgent
 }: {
     token?: string;
     recaptchaAction?: string;
+    userIpAddress?: string;
+    userAgent?: string;
 }) => {
     if (!token) {
         console.error("No reCAPTCHA token provided");
@@ -28,7 +32,7 @@ export const createAssessment = async ({
         console.error("RECAPTCHA_KEY is not defined in environment variables");
         return null;
     }
-
+    console.log("reCaptcha Action:", recaptchaAction);
     console.log("Google API Key:", env.GOOGLE_API_KEY);
     const request = await fetch(`https://recaptchaenterprise.googleapis.com/v1/projects/${projectID}/assessments?key=${GOOGLE_API_KEY}`, {
         method: "POST",
@@ -40,6 +44,9 @@ export const createAssessment = async ({
                 token,
                 expectedAction: recaptchaAction,
                 siteKey: recaptchaKey,
+                userIpAddress,
+                userAgent,
+                 
             }
         }),
     });
