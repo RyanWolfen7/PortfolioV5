@@ -44,8 +44,8 @@ export const createAssessment = async ({
         console.error("Invalid reCAPTCHA token", tokenProperties.invalidReason);
         return { passes: false, reason: "Invalid reCAPTCHA token" };
     }
-
-    if (riskAnalysis.score >= 0.5) {
+    console.log("reCAPTCHA risk analysis", body);
+    if (riskAnalysis.score <= 0.5) {
         console.log("High-risk reCAPTCHA score", riskAnalysis.score);
         return { passes: false, reason: "High-risk reCAPTCHA score" };
     }
