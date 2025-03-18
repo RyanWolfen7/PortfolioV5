@@ -9,7 +9,6 @@ export const load: PageServerLoad = async ({ cookies }) => {
 
 export const actions: Actions = {
     default: async ({ request, getClientAddress }) => {
-        
         try {
             const data = await request.formData();
             const recaptchaToken = data.get('g-recaptcha-response')?.toString();
@@ -18,7 +17,6 @@ export const actions: Actions = {
             const projectDetails = data.get('projectDetails')?.toString();
             if (!name || !email || !projectDetails) fail(400, { error: true, projectDetails: 'Please fill out all required fields', fields: { name, email, projectDetails }});
             if (!recaptchaToken) fail(400, { error: true, projectDetails: 'reCAPTCHA verification is required', fields: { name, email, projectDetails } });
-
             const { headers } = request
            // add header validation here
             const ip = getClientAddress();
