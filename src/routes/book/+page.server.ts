@@ -1,6 +1,7 @@
 import { createAssessment } from '$lib/components/server/gRecaptcha.server';
 import { fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
+import { sendMail } from '$lib/components/server/emailer.server';
 
 export const load: PageServerLoad = async ({ cookies }) => {
 
@@ -27,7 +28,7 @@ export const actions: Actions = {
                 userIpAddress: ip
             });
             if (!assessment || !assessment.passes) fail(400, { error: true, projectDetails: 'reCAPTCHA verification failed', fields: { name, email, projectDetails }, reason: assessment ? assessment.reason : 'Unknown reason'});
-            
+            await sendMail({})
             return {
                 success: true,
                 projectDetails: 'Thank you for your projectDetails. We\'ll get back to you soon!'

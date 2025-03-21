@@ -1,5 +1,4 @@
 import { env } from '$env/dynamic/private';
-import { GOOGLE_API_KEY } from '$env/static/private';
 /**
  * Creates a reCAPTCHA assessment to verify the token
  * @param options Configuration options for the assessment
@@ -31,7 +30,7 @@ export const createAssessment = async ({
             "userAgent": userAgent
         }
     };
-    const recaptchaResponse = await fetch(`https://recaptchaenterprise.googleapis.com/v1/projects/${projectID}/assessments?key=${GOOGLE_API_KEY}`, {
+    const recaptchaResponse = await fetch(`https://recaptchaenterprise.googleapis.com/v1/projects/${projectID}/assessments?key=${env.GOOGLE_API_KEY}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json; charset=utf-8",
